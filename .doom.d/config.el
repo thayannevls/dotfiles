@@ -36,9 +36,9 @@
 ;;doom-unicode-font (font-spec :size 24)
 ;;doom-big-font-increment 2
 
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-dracula)
 (setq
- doom-font (font-spec :family "Source Code Pro for Powerline" :size 24)
+ doom-font (font-spec :family "Hack" :size 24)
  projectile-project-search-path '("~/dev/nu/")
  doom-localleader-key ","
  read-process-output-max (* 1024 1024)
@@ -90,6 +90,10 @@
   :config
   (setq lsp-semantic-tokens-enable t)
   (add-hook 'lsp-after-apply-edits-hook (lambda (&rest _) (save-buffer)))) ;; save buffers after renaming
+
+(use-package! paredit
+  :hook ((clojure-mode . paredit-mode)
+         (emacs-lisp-mode . paredit-mode)))
 
 (let ((nudev-emacs-path "~/dev/nu/nudev/ides/emacs/"))
   (when (file-directory-p nudev-emacs-path)
