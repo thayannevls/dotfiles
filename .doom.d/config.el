@@ -39,7 +39,7 @@
 (setq doom-theme 'doom-dracula)
 (setq
  doom-font (font-spec :family "Hack" :size 24)
- projectile-project-search-path '("~/dev/nu/")
+ projectile-project-search-path '("~/dev/nu")
  doom-localleader-key ","
  read-process-output-max (* 1024 1024)
  projectile-enable-caching nil)
@@ -95,7 +95,20 @@
   :hook ((clojure-mode . paredit-mode)
          (emacs-lisp-mode . paredit-mode)))
 
+(use-package python-mode
+  :ensure t
+  :hook (python-mode . lsp-deferred)
+  :custom
+  ;; NOTE: Set these if Python 3 is called "python3" on your system!
+  (python-shell-interpreter "python3")
+  (dap-python-executable "python3")
+  (dap-python-debugger 'debugpy)
+  :config
+  (require 'dap-python))
+
 (let ((nudev-emacs-path "~/dev/nu/nudev/ides/emacs/"))
   (when (file-directory-p nudev-emacs-path)
     (add-to-list 'load-path nudev-emacs-path)
     (require 'nu nil t)))
+
+(add-to-list 'projectile-project-search-path "~/dev/nu/mini-meta-repo/packages")
